@@ -1,0 +1,18 @@
+# Build
+build/
+build-*/
+out/
+cmake-build-*/
+CMakeUserPresets.json
+CMakeLists.txt.user
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+
+# Database lokal
+*.db
+*.sqlite
+*.sqlite3

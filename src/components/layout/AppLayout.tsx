@@ -1,0 +1,16 @@
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, LayoutDashboard, Menu, Plus, ReceiptText, ShieldCheck } from 'lucide-react';
+import { Dialog } from '../common/Dialog';
+export type Page = 'dashboard' | 'transactions';
+const pages = [{ id: 'dashboard' as const, name: 'Dashboard', icon: LayoutDashboard }, { id: 'transactions' as const, name: 'Transactions', icon: ReceiptText }];
+export function AppLayout({ page, onNavigate, children, onAdd }: { page: Page; onNavigate: (page: Page) => void; children: ReactNode; onAdd: () => void }) {
+  const [collapsed, setCollapsed] = useState(false); const [mobileOpen, setMobileOpen] = useState(false);
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { heading.current?.focus(); }, [page]);
+  const nav = <nav aria-label="Main navigation">{pages.map(({ id, name, icon: Icon }) => <a key={id} href={`#/${id}`} aria-current={page === id ? 'page' : undefined} className={`nav-link ${page === id ? 'active' : ''}`} title={name} onClick={() => { onNavigate(id); setMobileOpen(false); }}><Icon size={20}/><span className={collapsed ? 'desktop-label' : ''}>{name}</span></a>)}</nav>;
+  return <div className={`app-shell ${collapsed ? 'is-collapsed' : ''}`}><a className="skip-link" href="#main">Skip to content</a><aside className="sidebar"><a className="brand" href="#/dashboard" onClick={() => onNavigate('dashboard')} aria-label="FINORA dashboard"><span className="brand-mark"><ArrowUpRight size={23}/></span><span className={collapsed ? 'desktop-label' : ''}>FINORA<span className="brand-dot">.</span></span></a><div className="nav-caption">{collapsed ? 'APP' : 'WORKSPACE'}</div>{nav}<div className="sidebar-bottom"><div className="privacy-note"><ShieldCheck size={19}/>{!collapsed && <span>Local-first finance<br/><small>Stored on this browser</small></span>}</div><button className="collapse-button" aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} onClick={() => setCollapsed(!collapsed)}>{collapsed ? <ChevronRight size={18}/> : <><ChevronLeft size={18}/>Collapse sidebar</>}</button></div></aside>
+  {mobileOpen && <Dialog title="FINORA navigation" onClose={() => setMobileOpen(false)}>{nav}</Dialog>}
+  <div className="workspace"><header className="topbar"><button className="icon-button mobile-menu" aria-label="Open navigation" onClick={() => setMobileOpen(true)}><Menu size={22}/></button><div className="breadcrumb">Workspace <span>/</span> <strong>{page === 'dashboard' ? 'Overview' : 'Transactions'}</strong></div><span className="local-status"><i/>Local workspace</span></header>
+    <main id="main" tabIndex={-1}><div className="page-heading"><div><p className="eyebrow">YOUR MONEY, WITH CLARITY</p><h1 ref={heading} tabIndex={-1}>{page === 'dashboard' ? 'Financial overview' : 'Transactions'}</h1><p className="muted">{page === 'dashboard' ? 'A clear view of what comes in and what goes out.' : 'Every record, organized in one place.'}</p></div><button className="button primary" onClick={onAdd}><Plus size={18}/>Add transaction</button></div>{children}<footer className="app-footer">FINORA · Personal finance, thoughtfully organized.<span>Foundation release · v0.1</span></footer></main>
+  </div></div>;
+}

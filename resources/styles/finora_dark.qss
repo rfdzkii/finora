@@ -1,0 +1,65 @@
+/* FINORA - tema dark navy + emerald */
+
+* {
+    font-family: "Segoe UI";
+    font-size: 14px;
+    color: #E2E8F0;
+}
+
+QLabel {
+    background: transparent;
+}
+
+QMainWindow,
+QWidget#central,
+QWidget#page {
+    background-color: #0B1220;
+}
+
+/* ---------- Sidebar ---------- */
+QWidget#sidebar {
+    background-color: #0F1A2E;
+    border-right: 1px solid #1E293B;
+}
+
+QLabel#logo {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #10B981;
+}
+
+QPushButton#navButton {
+    text-align: left;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #94A3B8;
+}
+
+QPushButton#navButton:hover {
+    background-color: #16243D;
+    color: #E2E8F0;
+}
+
+QPushButton#navButton:checked {
+    background-color: #10B981;
+    color: #04110C;
+    font-weight: 600;
+}
+
+QLabel#versionLabel {
+    color: #475569;
+    font-size: 12px;
+}
+
+/* ---------- Halaman ---------- */
+QLabel#pageTitle {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+QLabel#pageSubtitle {
+    color: #94A3B8;
+}

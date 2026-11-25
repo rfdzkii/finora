@@ -1,0 +1,200 @@
+TAP version 13
+# Subtest: balance includes initial balance and all transactions
+ok 1 - balance includes initial balance and all transactions
+  ---
+  duration_ms: 1.21571
+  ...
+# Subtest: income calculation
+ok 2 - income calculation
+  ---
+  duration_ms: 0.139587
+  ...
+# Subtest: expense calculation
+ok 3 - expense calculation
+  ---
+  duration_ms: 0.151321
+  ...
+# Subtest: net savings calculation
+ok 4 - net savings calculation
+  ---
+  duration_ms: 0.134289
+  ...
+# Subtest: empty dataset calculations
+ok 5 - empty dataset calculations
+  ---
+  duration_ms: 0.189454
+  ...
+# Subtest: negative balances are valid
+ok 6 - negative balances are valid
+  ---
+  duration_ms: 0.114928
+  ...
+# Subtest: integer overflow is rejected
+ok 7 - integer overflow is rejected
+  ---
+  duration_ms: 0.287911
+  ...
+# Subtest: monthly filtering includes endpoints and excludes other months
+ok 8 - monthly filtering includes endpoints and excludes other months
+  ---
+  duration_ms: 0.970469
+  ...
+# Subtest: open-ended date filters
+ok 9 - open-ended date filters
+  ---
+  duration_ms: 0.207768
+  ...
+# Subtest: reversed ranges rejected
+ok 10 - reversed ranges rejected
+  ---
+  duration_ms: 0.224432
+  ...
+# Subtest: calendar validation checks leap years
+ok 11 - calendar validation checks leap years
+  ---
+  duration_ms: 0.150332
+  ...
+# Subtest: month range respects leap years
+ok 12 - month range respects leap years
+  ---
+  duration_ms: 0.163899
+  ...
+# Subtest: category budget utilization uses only matching month and category
+ok 13 - category budget utilization uses only matching month and category
+  ---
+  duration_ms: 0.320734
+  ...
+# Subtest: total monthly budgets include all categories
+ok 14 - total monthly budgets include all categories
+  ---
+  duration_ms: 0.964442
+  ...
+# Subtest: zero budgets rejected
+ok 15 - zero budgets rejected
+  ---
+  duration_ms: 0.167584
+  ...
+# Subtest: goal progress and remaining amount
+ok 16 - goal progress and remaining amount
+  ---
+  duration_ms: 0.248209
+  ...
+# Subtest: zero goal targets rejected
+ok 17 - zero goal targets rejected
+  ---
+  duration_ms: 0.135866
+  ...
+# Subtest: category breakdown has no NaN for empty datasets
+ok 18 - category breakdown has no NaN for empty datasets
+  ---
+  duration_ms: 0.276127
+  ...
+# Subtest: positive transaction validation
+ok 19 - positive transaction validation
+  ---
+  duration_ms: 0.294983
+  ...
+# Subtest: invalid transaction inputs rejected
+ok 20 - invalid transaction inputs rejected
+  ---
+  duration_ms: 0.419317
+  ...
+# Subtest: rupiah parsing does not round or accept scientific notation
+ok 21 - rupiah parsing does not round or accept scientific notation
+  ---
+  duration_ms: 0.237706
+  ...
+# Subtest: editing updates the existing record and preserves identity and timestamp
+ok 22 - editing updates the existing record and preserves identity and timestamp
+  ---
+  duration_ms: 1.07699
+  ...
+# Subtest: editing missing record does not create duplicates
+ok 23 - editing missing record does not create duplicates
+  ---
+  duration_ms: 0.126038
+  ...
+# Subtest: deleting removes the specified transaction
+ok 24 - deleting removes the specified transaction
+  ---
+  duration_ms: 0.194772
+  ...
+# Subtest: custom category CRUD
+ok 25 - custom category CRUD
+  ---
+  duration_ms: 2.140254
+  ...
+# Subtest: predefined categories cannot be deleted
+ok 26 - predefined categories cannot be deleted
+  ---
+  duration_ms: 0.111685
+  ...
+# Subtest: used categories require reassignment
+ok 27 - used categories require reassignment
+  ---
+  duration_ms: 0.271391
+  ...
+# Subtest: CSV quotes commas, quotes and multiline descriptions
+ok 28 - CSV quotes commas, quotes and multiline descriptions
+  ---
+  duration_ms: 0.278291
+  ...
+# Subtest: CSV neutralizes formula-like text
+ok 29 - CSV neutralizes formula-like text
+  ---
+  duration_ms: 0.110626
+  ...
+# Subtest: backup round trip
+ok 30 - backup round trip
+  ---
+  duration_ms: 0.474233
+  ...
+# Subtest: malformed and future-version backups are rejected
+ok 31 - malformed and future-version backups are rejected
+  ---
+  duration_ms: 0.270618
+  ...
+# Subtest: unknown fields are not copied from imported records
+ok 32 - unknown fields are not copied from imported records
+  ---
+  duration_ms: 0.18195
+  ...
+# Subtest: bad references and timestamps rejected
+ok 33 - bad references and timestamps rejected
+  ---
+  duration_ms: 0.277488
+  ...
+# Subtest: duplicate monthly category budgets rejected
+ok 34 - duplicate monthly category budgets rejected
+  ---
+  duration_ms: 0.218793
+  ...
+# Subtest: memory repository returns independent snapshots and rejects stale updates
+ok 35 - memory repository returns independent snapshots and rejects stale updates
+  ---
+  duration_ms: 0.416143
+  ...
+# Subtest: local storage round trip
+ok 36 - local storage round trip
+  ---
+  duration_ms: 1.145433
+  ...
+# Subtest: storage failure is surfaced without pretending a save succeeded
+ok 37 - storage failure is surfaced without pretending a save succeeded
+  ---
+  duration_ms: 0.370399
+  ...
+# Subtest: corrupt stored data is not silently overwritten
+ok 38 - corrupt stored data is not silently overwritten
+  ---
+  duration_ms: 0.177858
+  ...
+1..38
+# tests 38
+# suites 0
+# pass 38
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 101.608216

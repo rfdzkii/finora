@@ -1,0 +1,15 @@
+import { BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import type { AppData, Transaction } from '../../models/types';
+import { categoryBreakdown, expenses, income } from '../../utils/finance';
+import { money } from '../../utils/format';
+const colors = ['#10B981', '#60A5FA', '#A78BFA', '#FBBF24', '#FB7185', '#38BDF8', '#F472B6', '#94A3B8'];
+export function Charts({ records, categories }: { records: Transaction[]; categories: AppData['categories'] }) {
+  const groups = [...new Set(records.map(t => t.date.slice(0, 7)))].sort();
+  const points = groups.map(month => ({ month, Income: income(records.filter(t => t.date.startsWith(month))), Expenses: expenses(records.filter(t => t.date.startsWith(month))) }));
+  const breakdown = categoryBreakdown(records, categories);
+  return <div className="chart-grid"><section className="card"><div className="section-heading"><div><h2>Cash flow</h2><p>Income and expenses in your selected period</p></div><span className="badge">IDR</span></div>
+    {points.length ? <div className="chart" role="img" aria-label={`Income ${money(income(records))}, expenses ${money(expenses(records))}`}><ResponsiveContainer width="100%" height="100%"><BarChart data={points} barGap={8}><CartesianGrid vertical={false} stroke="#263247"/><XAxis dataKey="month" tick={{ fill: '#94A3B8', fontSize: 11 }} axisLine={false} tickLine={false}/><YAxis tick={{ fill: '#94A3B8', fontSize: 11 }} tickFormatter={v => new Intl.NumberFormat('en', { notation: 'compact' }).format(Number(v))} axisLine={false} tickLine={false}/><Tooltip contentStyle={{ background: '#172033', border: '1px solid #334155', borderRadius: 12 }} formatter={v => money(Number(v))}/><Bar dataKey="Income" fill="#10B981" radius={[5, 5, 0, 0]}/><Bar dataKey="Expenses" fill="#FB7185" radius={[5, 5, 0, 0]}/></BarChart></ResponsiveContainer></div> : <div className="empty chart-empty"><h3>Your financial story starts here</h3><p>Add your first transaction to see cash flow.</p></div>}
+  </section><section className="card"><div className="section-heading"><div><h2>Expense distribution</h2><p>Where your money goes</p></div></div>
+    {breakdown.length ? <><div className="pie-chart" role="img" aria-label={breakdown.map(c => `${c.name}: ${money(c.amount)}`).join(', ')}><ResponsiveContainer width="100%" height="100%"><PieChart><Pie data={breakdown} dataKey="amount" nameKey="name" innerRadius={55} outerRadius={86} paddingAngle={3} stroke="none">{breakdown.map((c, i) => <Cell key={c.id} fill={colors[i % colors.length]}/>)}</Pie><Tooltip formatter={v => money(Number(v))} contentStyle={{ background: '#172033', border: '1px solid #334155', borderRadius: 12 }}/></PieChart></ResponsiveContainer></div><ul className="legend">{breakdown.map((c, i) => <li key={c.id}><span><i style={{ backgroundColor: colors[i % colors.length] }}/>{c.name}</span><strong>{c.percent.toFixed(1)}%</strong></li>)}</ul></> : <div className="empty chart-empty"><h3>No expenses yet</h3><p>Expense categories will appear here.</p></div>}
+  </section></div>;
+}
